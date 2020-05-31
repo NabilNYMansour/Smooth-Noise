@@ -6,7 +6,7 @@ x = 1000
 y = 500
 
 
-def SmoothRand(x, y, spikenessCoef, stretchCoef):
+def SmoothRand(y_starting, x, y, spikenessCoef, stretchCoef):
     def SmoothRandomizer(y_starting, spikenessCoef, y_max, bias):
         randomValue = random.randrange(-spikenessCoef, spikenessCoef)
         if (y_starting < y_max/4):
@@ -15,12 +15,13 @@ def SmoothRand(x, y, spikenessCoef, stretchCoef):
             randomValue = -(abs(randomValue) + bias)
         return y_starting + randomValue
 
-    nextValue = y/2
+    nextValue = y_starting
 
     listOfXPoints = []
     listOfYPoints = []
     for i in range(0, x, stretchCoef):
         listOfXPoints.append(i)
-        nextValue = SmoothRandomizer(nextValue, spikenessCoef, y, spikenessCoef)
+        nextValue = SmoothRandomizer(
+            nextValue, spikenessCoef, y, spikenessCoef)
         listOfYPoints.append(nextValue)
     return listOfXPoints, listOfYPoints
