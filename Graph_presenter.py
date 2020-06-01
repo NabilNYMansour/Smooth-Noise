@@ -17,10 +17,23 @@ def Present(y_starting, x_max, y_max, spike, stretch):
     ynew = f(xnew)
 
     plt.ylim((0, y_max))
-    plt.plot(x, y, '.', xnew, ynew, '-')
+    plt.plot(xnew, ynew, '-')
 
     plt.xlabel('x - axis')
     plt.ylabel('y - axis')
     plt.title('Graph')
 
     plt.show()
+
+
+def Returner(y_starting, x_max, y_max, spike, stretch):
+    Values = RandomSmooth.SmoothRand(y_starting, x_max, y_max, spike, stretch)
+    xVert = Values[0]
+    y = Values[1]
+    f = interp.interp1d(xVert, y, kind='quadratic')
+    xnew = []
+
+    for i in range(xVert[-1]):
+        xnew.append(i)
+
+    return xVert, f(xnew)
