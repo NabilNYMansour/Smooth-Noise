@@ -8,11 +8,11 @@ import time
 start_time = time.time()
 
 # Keep these values odd
-x = 101
-y = 101
+x = 1001
+y = 1001
 
-spikeness = 10
-stretchness = 5
+spikeness = 100
+stretchness = 25
 y_starting = y/9
 
 Type = "cubic"
@@ -155,7 +155,8 @@ for i in range(0, x):
 print("Interpolation finished")
 
 enchancer = ImageEnhance.Sharpness(img)
-# img = img.crop((2,2,x-2,y-2))
+cropAmount = 10
+img = img.crop((cropAmount,cropAmount,x-cropAmount,y-cropAmount))
 # img = enchancer.enhance(1000)
 img.save("2D_noise.png")
 print("--- %s seconds ---" % (time.time() - start_time))
