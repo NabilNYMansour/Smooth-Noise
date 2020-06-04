@@ -8,11 +8,11 @@ import time
 start_time = time.time()
 
 # Keep these values odd
-x = 1001
-y = 1001
+x = 101
+y = 101
 
-spikeness = 100
-stretchness = 25
+spikeness = 50
+stretchness = 3
 y_starting = y/9
 
 Type = "cubic"
@@ -95,36 +95,36 @@ print("--- %s seconds ---" % (time.time() - start_time))
 img.save("2D_noise.png")
 
 #------------------------------Diagonal_left------------------------------#
-for j in range(0, y, stretchness):
-    Values = RandomSmooth.SmoothRand(y_starting, x*stretchness, y/2, spikeness, stretchness)
-    xVert = Values[0]
-    shadeHeight = Values[1]
-    shade = [int(abs(value/y) * 265) for value in shadeHeight]
-    for i in range(0, x, stretchness):
-        if (i+j < x):
-            currentShade = img.getpixel((i+j, i))[0]
-            newShade = (shade[i] + currentShade)//2
-            ImageDraw.Draw(img).point(
-                (i+j, i), (newShade, newShade, newShade, 0))
-print("Diagonal left finished")
-print("--- %s seconds ---" % (time.time() - start_time))
-img.save("2D_noise.png")
+# for j in range(0, y, stretchness):
+#     Values = RandomSmooth.SmoothRand(y_starting, x*stretchness, y/2, spikeness, stretchness)
+#     xVert = Values[0]
+#     shadeHeight = Values[1]
+#     shade = [int(abs(value/y) * 265) for value in shadeHeight]
+#     for i in range(0, x, stretchness):
+#         if (i+j < x):
+#             currentShade = img.getpixel((i+j, i))[0]
+#             newShade = (shade[i] + currentShade)//2
+#             ImageDraw.Draw(img).point(
+#                 (i+j, i), (newShade, newShade, newShade, 0))
+# print("Diagonal left finished")
+# print("--- %s seconds ---" % (time.time() - start_time))
+# img.save("2D_noise.png")
 
 # -----------------------------Diagonal_right-----------------------------#
-for j in range(y, 0, -stretchness):
-    Values = RandomSmooth.SmoothRand(y_starting, x*stretchness, y/2, spikeness, stretchness)
-    xVert = Values[0]
-    shadeHeight = Values[1]
-    shade = [int(abs(value/y) * 265) for value in shadeHeight]
-    for i in range(0, x, stretchness):
-        if (i+j <= y):
-            currentShade = img.getpixel((i, i+j - 1))[0]
-            newShade = (shade[i] + currentShade)//2
-            ImageDraw.Draw(img).point(
-                (i, i+j - 1), (newShade, newShade, newShade, 0))
-print("Diagonal right finished")
-print("--- %s seconds ---" % (time.time() - start_time))
-img.save("2D_noise.png")
+# for j in range(y, 0, -stretchness):
+#     Values = RandomSmooth.SmoothRand(y_starting, x*stretchness, y/2, spikeness, stretchness)
+#     xVert = Values[0]
+#     shadeHeight = Values[1]
+#     shade = [int(abs(value/y) * 265) for value in shadeHeight]
+#     for i in range(0, x, stretchness):
+#         if (i+j <= y):
+#             currentShade = img.getpixel((i, i+j - 1))[0]
+#             newShade = (shade[i] + currentShade)//2
+#             ImageDraw.Draw(img).point(
+#                 (i, i+j - 1), (newShade, newShade, newShade, 0))
+# print("Diagonal right finished")
+# print("--- %s seconds ---" % (time.time() - start_time))
+# img.save("2D_noise.png")
 
 #------------------------------Interpolation------------------------------#
 for j in range(0, y, stretchness):
@@ -156,7 +156,7 @@ print("Interpolation finished")
 
 enchancer = ImageEnhance.Sharpness(img)
 cropAmount = 10
+# img = enchancer.enhance(10)
 img = img.crop((cropAmount,cropAmount,x-cropAmount,y-cropAmount))
-# img = enchancer.enhance(1000)
 img.save("2D_noise.png")
 print("--- %s seconds ---" % (time.time() - start_time))
